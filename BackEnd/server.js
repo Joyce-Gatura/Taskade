@@ -11,7 +11,7 @@ const { PrismaClient } = require('@prisma/client');
 const app = express();
 const port = 5000;
 const prisma = new PrismaClient();
-const secret = process.env.JWT_SECRET || 'your_jwt_secret'; // Ensure you set this in your environment variables
+const secret = process.env.JWT_SECRET || 'your_jwt_secret'; 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
