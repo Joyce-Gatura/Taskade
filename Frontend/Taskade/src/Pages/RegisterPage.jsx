@@ -11,12 +11,11 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is already logged in
     const checkAuth = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/checkAuth');
         if (response.data.isLoggedIn) {
-          navigate('/dashboard'); // Redirect to dashboard if already logged in
+          navigate('/dashboard'); 
         }
       } catch (error) {
         console.error('Error checking authentication:', error);
@@ -41,7 +40,7 @@ const Register = () => {
 
       if (response.data.message === 'User registered successfully') {
         alert('Successfully registered');
-        navigate('/login'); // Redirect to login page after successful registration
+        navigate('/login'); 
       } else {
         alert('Registration failed: ' + response.data.message);
       }
