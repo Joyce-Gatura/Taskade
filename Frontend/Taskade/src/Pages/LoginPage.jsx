@@ -9,12 +9,12 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is already logged in
+  
     const checkAuth = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/checkAuth');
         if (response.data.isLoggedIn) {
-          navigate('/dashboard'); // Redirect to dashboard if already logged in
+          navigate('/dashboard');
         }
       } catch (error) {
         console.error('Error checking authentication:', error);
@@ -34,7 +34,7 @@ const Login = () => {
 
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        navigate('/dashboard'); // Redirect to dashboard after successful login
+        navigate('/dashboard'); 
       }
       
       else {
