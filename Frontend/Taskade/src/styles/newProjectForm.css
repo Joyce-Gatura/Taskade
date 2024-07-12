@@ -1,0 +1,109 @@
+.new-project-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-project-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+
+}
+
+.new-project-form button{
+  height: 35px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input[type="text"],
+.input-group input[type="date"] {
+  width: 40%; 
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.tasks-input {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.tasks-input input[type="text"] {
+  flex: 1;
+  min-width: 0; 
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.tasks-input button {
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.tasks-input button:hover {
+  background-color: #0056b3;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.form-buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.form-buttons button:first-child {
+  margin-left: 0;
+}
+
+.form-buttons button:hover {
+  background-color: #218838;
+}
+
+.form-buttons .cancel-button,
+.form-buttons .delete-button {
+  background-color: #dc3545; 
+}
+
+.form-buttons .cancel-button:hover,
+.form-buttons .delete-button:hover {
+  background-color: #c82333; 
+}
+
+.input-group input[type="text"] {
+  color: #c82333;
+}

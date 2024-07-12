@@ -1,0 +1,31 @@
+.sidebar {
+    width: 150px;
+    background-color: #f4f4f4;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    position: fixed;
+    top: 25px; 
+    bottom: 0;
+    left: 0; 
+    overflow-y: auto;
+    margin-top: 60px; 
+  }
+  
+  .sidebar-item {
+    padding: 0.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-item:hover {
+    background-color: #ddd;
+  }
+  
+  .search input {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+  }
+  

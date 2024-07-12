@@ -1,0 +1,31 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 60px; 
+  }
+  
+  .home-container {
+    display: flex;
+    flex: 1;
+    margin-top: 60px;
+  }
+  
+  .home-content {
+    flex: 1;
+    margin-left: 200px;
+    padding: 2em;
+    overflow-y: auto;
+  }
+  
+  .footer {
+    background-color: #c3c1e7;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    width: calc(100% - 200px);
+    bottom: 0;
+    left: 200px; 
+  }
+  

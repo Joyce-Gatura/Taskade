@@ -12,6 +12,7 @@ const app = express();
 const port = 5000;
 const prisma = new PrismaClient();
 const secret = process.env.JWT_SECRET || 'your_jwt_secret'; // Ensure you set this in your environment variables
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -36,6 +37,9 @@ app.post('/api/register', async (req, res) => {
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         console.error('Error registering user:', error);
+        if (error.code === 'P2002') { // Prisma unique constraint violation
+            return res.status(400).json({ message: 'Email already exists' });
+        }
         res.status(500).json({ message: 'An error occurred during registration' });
     }
 });
@@ -52,7 +56,7 @@ app.post('/api/login', async (req, res) => {
         const user = await prisma.user.findUnique({ where: { email } });
 
         if (user && await bcrypt.compare(password, user.hashed_password)) {
-            const token = jwt.sign({ userId: user.id }, secret);
+            const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
             res.json({ token });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
@@ -79,6 +83,7 @@ app.get('/api/checkAuth', (req, res) => {
     }
 });
 
+// Start server and connect to database
 app.listen(port, async () => {
     try {
         await prisma.$connect();
@@ -88,3 +93,4 @@ app.listen(port, async () => {
     }
     console.log(`Server running on http://localhost:${port}`);
 });
+
