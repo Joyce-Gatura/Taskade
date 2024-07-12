@@ -3,6 +3,8 @@ import '../styles/newProjectForm.css';
 
 const NewProjectForm = ({ addProject, closeForm }) => {
   const [title, setTitle] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
@@ -26,17 +28,24 @@ const NewProjectForm = ({ addProject, closeForm }) => {
   };
 
   const handleSubmit = () => {
-    if (title.trim() && tasks.length) {
+    if (title.trim() && startDate && endDate && tasks.length > 0) {
+      const projectId = Date.now().toString();
       const newProject = {
-        id: Date.now().toString(),
+        id: projectId,
         title,
-        dueDate: new Date().toISOString().split('T')[0],
-        tasks: tasks.map((task) => ({ id: Date.now().toString(), content: task, completed: false }))
+        startDate,
+        endDate,
+        tasks: tasks.map((task, index) => ({
+          id: `${projectId}-${index}-${Date.now()}`,
+          content: task,
+          completed: false
+        }))
       };
       addProject(newProject);
       setTitle('');
+      setStartDate('');
+      setEndDate('');
       setTasks([]);
-      closeForm();
     }
   };
 
@@ -45,20 +54,20 @@ const NewProjectForm = ({ addProject, closeForm }) => {
       <h2>Create Project</h2>
       <input
         type="text"
-        placeholder="Enter Project Title"
+        placeholder="Project Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <div className="tasks-input">
         <input
           type="text"
-          placeholder="Enter Task"
+          placeholder="Tasks"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button onClick={handleAddTask}>Add Task</button>
+        <button onClick={handleAddTask}>Save</button>
       </div>
-      <ul className="tasks-list">
+      <ul>
         {tasks.map((task, index) => (
           <li key={index} className="task-item">
             <input
@@ -70,6 +79,24 @@ const NewProjectForm = ({ addProject, closeForm }) => {
           </li>
         ))}
       </ul>
+      <div className="input-group">
+        <label htmlFor="start-date">Start Date</label>
+        <input
+          id="start-date"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="end-date">End Date</label>
+        <input
+          id="end-date"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </div>
       <div className="form-buttons">
         <button onClick={handleSubmit}>Submit Project</button>
         <button onClick={closeForm}>Cancel</button>
