@@ -14,7 +14,7 @@ const CalendarComponent = () => {
   useEffect(() => {
     // Fetch events from the backend (dummy data for now)
     const dummyEvents = [
-      { date: new Date(), title: 'Sample Event' },
+      { date: new Date(), title: '' },
     ];
     setEvents(dummyEvents);
   }, []);
@@ -41,7 +41,7 @@ const CalendarComponent = () => {
         value={date}
         tileContent={tileContent}
       />
-      <button onClick={() => addEvent(date, "New Event")}>Add Event</button>
+      <button  onClick={() => addEvent(date, "")}>Add Event</button>
       <ul>
         {events.map((event, index) => (
           <li key={index}>{event.title} on {event.date.toDateString()}</li>
@@ -53,3 +53,4 @@ const CalendarComponent = () => {
 };
 
 export default CalendarComponent;
+

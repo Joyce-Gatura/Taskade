@@ -1,36 +1,31 @@
-import React from 'react';
-import '../styles/navbar.css'; 
-import taskadeicon from '../assets/taskadeicon.png';
-import profilepic from '../assets/profile.jpg';
 
-const Navbar = () => {
+
+import React from 'react';
+import { Flex, Box, Image, Heading, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom'; 
+import taskadeicon from '../assets/taskadeicon.png';
+
+const Navbar = ({ setCurrentContent }) => {
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
-        <div className="taskade-icon">
-          <img src={taskadeicon} alt="Taskade Icon" />
-        </div>
-        <div className="taskade-icon">
-        </div>
-        <h2>Taskade</h2>
-      </div>
-      <div className="navbar-right">
-      <div className="notification">
-          <span>🔔</span>
-        </div>
-        <div className="settings">
-          <span>Settings</span>
-        </div>
-        <div className="help">
-          <span>Help</span>
-        </div>
-        
-        <div className="profile">
-          <img src={profilepic} alt="Profile" />
-        </div>
-      </div>
-    </nav>
+    <Flex as="nav" bg="gray.100" p={4} align="center" justify="space-between">
+      <Flex align="center">
+        <Box boxSize="40px" mr={2}>
+          <Image src={taskadeicon} alt="Taskade Icon" boxSize="100%" />
+        </Box>
+        <Heading as="h2" size="md">
+          <Link to="/" onClick={() => setCurrentContent('home')}>Taskade</Link>
+        </Heading>
+      </Flex>
+      <Flex align="center">
+        <Text mx={4} onClick={() => setCurrentContent('notifications')}>Notifications</Text>
+        <Text mx={4} onClick={() => setCurrentContent('settings')}>Settings</Text>
+        <Text mx={4} onClick={() => setCurrentContent('help')}>Help</Text>
+        <Text mx={4} onClick={() => setCurrentContent('about-us')}>About Us</Text>
+        <Text mx={4} onClick={() => setCurrentContent('profile')}>Profile</Text>
+      </Flex>
+    </Flex>
   );
 };
 
 export default Navbar;
+

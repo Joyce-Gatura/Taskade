@@ -4,6 +4,8 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,10 +16,37 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  username       String   @unique
-  email          String   @unique
+  id             Int       @id @default(autoincrement())
+  username       String    @unique
+  email          String    @unique
   hashed_password String
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+}
+
+model Project {
+  project_id             Int       @id @default(autoincrement())
+  project_name           String
+  start_date             DateTime?
+  end_date               DateTime?
+  tasks                  Task[]
+  progress_percentage    Int?
+}
+
+model Task {
+  task_id    Int       @id @default(autoincrement())
+  content    String
+  completed  Boolean   @default(false)
+  project_id Int
+  project    Project   @relation(fields: [project_id], references: [project_id])
+  subTasks   SubTask[]
+}
+
+model SubTask {
+  id        Int       @id @default(autoincrement())
+  content   String
+  completed Boolean   @default(false)
+  progress  Int       @default(0) // Added progress tracking field
+  task_id   Int
+  task      Task      @relation(fields: [task_id], references: [task_id])
 }
