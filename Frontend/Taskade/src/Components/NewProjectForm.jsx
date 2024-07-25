@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+
+
+
+import React, { useState, useEffect } from 'react';
 import '../styles/newProjectForm.css';
+import axios from 'axios';
 
 const NewProjectForm = ({ addProject, closeForm }) => {
-  const [title, setTitle] = useState('');
+  const [projectName, setProjectName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (closeForm) {
+      setProjectName('');
+      setStartDate('');
+      setEndDate('');
+      setTasks([]);
+      setError(''); 
+    }
+  }, [closeForm]);
 
   const handleAddTask = () => {
     if (newTask.trim()) {
@@ -27,36 +42,42 @@ const NewProjectForm = ({ addProject, closeForm }) => {
     setTasks(updatedTasks);
   };
 
-  const handleSubmit = () => {
-    if (title.trim() && startDate && endDate && tasks.length > 0) {
-      const projectId = Date.now().toString();
-      const newProject = {
-        id: projectId,
-        title,
-        startDate,
-        endDate,
-        tasks: tasks.map((task, index) => ({
-          id: `${projectId}-${index}-${Date.now()}`,
-          content: task,
-          completed: false
-        }))
-      };
-      addProject(newProject);
-      setTitle('');
-      setStartDate('');
-      setEndDate('');
-      setTasks([]);
+  const handleSubmit = async () => {
+    if (projectName.trim() && startDate && endDate && tasks.length > 0) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/projects', {
+          project_name: projectName,
+          start_date: startDate,
+          end_date: endDate,
+          tasks,
+          progress_percentage: 0, // Set initial progress percentage to 0
+        });
+
+        console.log('Project created successfully:', response.data);
+        addProject(response.data); // Assuming response.data is the created project
+        setProjectName('');
+        setStartDate('');
+        setEndDate('');
+        setTasks([]);
+        closeForm(); 
+      } catch (error) {
+        console.error('Error creating project:', error);
+        setError('Error creating project. Please try again.');
+      }
+    } else {
+      setError('Please fill out all fields and add at least one task.');
     }
   };
 
   return (
     <div className="new-project-form">
       <h2>Create Project</h2>
+      {error && <p className="error-message">{error}</p>}
       <input
         type="text"
         placeholder="Project Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={projectName}
+        onChange={(e) => setProjectName(e.target.value)}
       />
       <div className="tasks-input">
         <input
@@ -65,7 +86,7 @@ const NewProjectForm = ({ addProject, closeForm }) => {
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button onClick={handleAddTask}>Save</button>
+        <button onClick={handleAddTask}>Add Task</button>
       </div>
       <ul>
         {tasks.map((task, index) => (
