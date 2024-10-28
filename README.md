@@ -1,6 +1,6 @@
 # Taskade Project
 
-## This is a brief description of my project:
+## Taskade is a comprehensive Tasks and Projects management application.
 
 
 ### Login Page UI:
