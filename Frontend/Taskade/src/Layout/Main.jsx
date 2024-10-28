@@ -1,33 +1,34 @@
 
+
+
+
 import React from 'react';
-import '../styles/main.css';
+import { Box } from '@chakra-ui/react';
+import CalendarComponent from '../Components/CalendarComponent';
+import Profile from '../features/projects/Profile';
+import AboutUs from '../features/projects/AboutUs';
 
+import Notification from '../features/projects/Notification';
+import TasksComponent from '../Components/TasksComponent';
+import Settings from '../features/projects/Settings';
+import ProjectsComponent from '../features/projects/ProjectsComponent';
+import ProgressTracker from '../features/projects/ProgessTracker';
 const MainContent = ({ currentContent }) => {
-  const renderContent = () => {
-    switch (currentContent) {
-      case 'tasks':
-        return <div>Tasks content goes here</div>;
-      case 'projects':
-        return (
-          <div>
-            <div className="projects-tab">Projects tab content goes here</div>
-            <div className="new-project-form">New project form content goes here</div>
-          </div>
-        );
-      case 'calendar':
-        return <CalendarComponent />;
-      default:
-        return <div>Welcome! Please select an item from the sidebar.</div>;
-    }
-  };
-
   return (
-    <div className="main-content">
-      {renderContent()}
-    </div>
+    <Box className="main-content">
+
+      {currentContent === 'projects' && <ProjectsComponent />}
+      {currentContent === 'tasks' && <TasksComponent/>}
+      {currentContent === 'calendar' && <CalendarComponent/>}
+      {currentContent === 'progress-tracker' && <ProgressTracker/>}
+      {currentContent === 'notifications' && <Notification />}
+      {currentContent === 'help' && <div>Help Content</div>}
+      {currentContent === 'about-us' && <AboutUs />} 
+      {currentContent === 'settings' && <Settings/>}
+      {currentContent === 'profile' && <Profile/>}
+    </Box>
   );
 };
 
 export default MainContent;
-
 

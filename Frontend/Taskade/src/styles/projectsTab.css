@@ -2,7 +2,7 @@
 
  .projects-tab {
   margin: 20px;
-}
+max-width: 350px;}
 
 .project-item {
   border: 1px solid #ddd;
@@ -12,7 +12,8 @@
 }
 
 .completed-task {
-  text-decoration: line-through;
+  
+  text-decoration:line-through ;
 }
 
 .edit-task-form {

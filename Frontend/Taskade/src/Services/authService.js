@@ -1,6 +1,3 @@
-/* eslint-disable no-unreachable */
-
-
 
 
 import axios from 'axios';
@@ -8,15 +5,18 @@ import axios from 'axios';
 const API_URL = 'http://localhost:5000/api';
 
 const login = (email, password, rememberMe) => {
-  return axios.get(`${API_URL}/login`, ()=> console.log("vgvfghjhgjhg"))
-  return axios.get(`${API_URL}/login`, {
+  return axios.post(`${API_URL}/auth/login`, {
     email,
     password,
     rememberMe,
-   });
+  });
+};
+
+const logout = () => {
+  return axios.post(`${API_URL}/auth/logout`);
 };
 
 export default {
   login,
+  logout,
 };
-
